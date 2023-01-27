@@ -4,6 +4,8 @@ import (
 	"context"
 	"log"
 	"net/http"
+
+    "basic-api/app"
 )
 
 func main() {
@@ -19,6 +21,8 @@ func main() {
 	bs := NewBookStore(db)
 	bh := NewBookHandler(bs)
 
+    a := app.NewApp()
+
 	err = bs.MigrateBookStore(ctx)
 	if err != nil {
 		log.Fatal(err)
@@ -26,6 +30,7 @@ func main() {
 
 	r := NewServer()
 	r.MountHandlers(bh)
+    r.MountMapper("/app", a)
 
 	log.Println("server run on port:" + port)
 	log.Fatalln(http.ListenAndServe(":"+port, r.Router))

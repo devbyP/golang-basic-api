@@ -11,6 +11,10 @@ import (
 	"github.com/go-chi/cors"
 )
 
+type Mapper interface {
+    Mapping() http.Handler
+}
+
 type Server struct {
 	Router *chi.Mux
 }
@@ -19,6 +23,10 @@ func NewServer() *Server {
 	s := &Server{}
 	s.Router = chi.NewRouter()
 	return s
+}
+
+func (s Server) MountMapper(path string, app Mapper) {
+    s.Router.Mount(path, app.Mapping())
 }
 
 func (s Server) MountHandlers(bh BookHandler) {

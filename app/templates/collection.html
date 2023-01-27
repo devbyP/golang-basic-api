@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>My Books Collection</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+    <h3>The collection</h3>
+    <table>
+        <thead>
+            <th>no.</th>
+            <th>title</th>
+            <th>author</th>
+            <th>released date</th>
+        </thead>
+        <tbody>
+            {{ range . }}
+            <td>{{ .ID }}</td>
+            <td>{{ .Title }}</td>
+            <td>{{ .AuthorName }}</td>
+            <td>{{ .ReleasedDate }}</td>
+            {{ end }}
+        </tbody>
+        <tfoot>
+            <td>this is foot</td>
+        </tfoot>
+    </table>
+</body>
+
+</html>
